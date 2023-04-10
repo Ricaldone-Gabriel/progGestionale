@@ -100,13 +100,11 @@ public class ProgGestionale {
         indietro = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
                 pannelloMenu.setVisible(true);
                 pannelloRubrica.setVisible(false);
                 pannelloRimuovi.setVisible(false);
             }
         };
-        
         
         pulsanteIndietroContatti.addActionListener(indietro);
         pulsanteIndietroRimuovi.addActionListener(indietro);
