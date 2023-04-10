@@ -21,5 +21,10 @@ public class Contatto {
         nominativo = "";
         telefono = "";
     }
+
+    @Override
+    public String toString() {
+        return nominativo + "-" + telefono;
+    }
     
 }
