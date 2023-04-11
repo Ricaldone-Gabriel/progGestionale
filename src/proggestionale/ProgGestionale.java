@@ -68,25 +68,25 @@ public class ProgGestionale {
     ProgGestionale() {
         rubrica = new ArrayList<Contatto>();
         DefaultListModel<Contatto> listModel = new DefaultListModel<>();
-        
+
         try {
             FileReader f = new FileReader("Rubrica.txt");
             BufferedReader fIn = new BufferedReader(f);
             String next = "";
             String[] result;
             do {
-               next = fIn.readLine();
-               if(next != null) {
-                   result = next.split("-");
-                   listModel.addElement(new Contatto(result[0],result[1]));
-                   rubrica.add(new Contatto(result[0],result[1]));
-               }
+                next = fIn.readLine();
+                if (next != null) {
+                    result = next.split("-");
+                    listModel.addElement(new Contatto(result[0], result[1]));
+                    rubrica.add(new Contatto(result[0], result[1]));
+                }
             } while (next != null);
             f.close();
         } catch (IOException ex) {
             Logger.getLogger(ProgGestionale.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         nominativiLista = new JList(listModel);
         rimuoviLista = new JList(listModel);
         rimuoviLista.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -182,13 +182,19 @@ public class ProgGestionale {
         pulsanteAggiunta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int result = JOptionPane.showConfirmDialog(null, pannelloPopUp,
+                int result;
+                result = JOptionPane.showConfirmDialog(null, pannelloPopUp,
                         "Aggiungi un contatto", JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION) {
                     if (!(nominativo.getText().isBlank() || numeroTel.getText().isBlank() || nominativo.getText().isEmpty() || numeroTel.getText().isEmpty())) {
-                        rubrica.add(new Contatto(nominativo.getText(), numeroTel.getText()));
-                        listModel.addElement(new Contatto(nominativo.getText(), numeroTel.getText()));
+                        if (numeroTel.getText().length() == 9) {
+                            rubrica.add(new Contatto(nominativo.getText(), numeroTel.getText()));
+                            listModel.addElement(new Contatto(nominativo.getText(), numeroTel.getText()));
+                            nominativo.setText(null);
+                            numeroTel.setText(null);
+                        }
                     }
+                } else {
                     nominativo.setText(null);
                     numeroTel.setText(null);
                 }
